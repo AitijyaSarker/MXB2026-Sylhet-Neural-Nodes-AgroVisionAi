@@ -31,15 +31,18 @@ export const Navbar: React.FC<NavbarProps> = ({
     <nav className="fixed top-0 w-full z-50 bg-white/95 dark:bg-zinc-950/90 backdrop-blur-md border-b border-zinc-200 dark:border-zinc-800 transition-all">
       <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
         <div 
-          className="flex items-center gap-2 cursor-pointer group"
+          className="flex items-center gap-3 cursor-pointer group"
           onClick={() => onPageChange('home')}
         >
-          <div className="p-2 bg-green-100 dark:bg-green-900/30 rounded-lg group-hover:rotate-12 transition-transform">
+          <div className="p-2 bg-green-100 dark:bg-green-900/30 rounded-lg group-hover:scale-110 transition-transform">
             <Leaf className="w-6 h-6 text-green-700 dark:text-green-500" />
           </div>
-          <span className="text-xl font-black bg-gradient-to-r from-green-700 to-emerald-600 bg-clip-text text-transparent">
-            {t('app_title')}
-          </span>
+          <div className="flex flex-col">
+            <span className="text-lg font-black bg-gradient-to-r from-green-700 to-emerald-600 dark:from-green-400 dark:to-emerald-400 bg-clip-text text-transparent">
+              AgroVision
+            </span>
+            <span className="text-xs font-semibold text-zinc-500 dark:text-zinc-400">AI Crop Detection</span>
+          </div>
         </div>
 
         <div className="hidden md:flex items-center gap-6">
