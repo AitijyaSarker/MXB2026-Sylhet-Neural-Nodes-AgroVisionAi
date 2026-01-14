@@ -8,48 +8,254 @@ interface ScannerProps {
   userId?: string;
 }
 
-const diseaseInfo: Record<string, { crop: string; description: string; solution: string[]; prevention: string[] }> = {
+const diseaseInfo: Record<string, { crop: string; description: string; solution: { en: string[]; bn: string[] }; prevention: { en: string[]; bn: string[] } }> = {
   'Rice Bacterial Blight': {
     crop: 'Rice',
     description: 'Bacterial blight is a serious disease of rice caused by Xanthomonas oryzae pv. oryzae. It affects leaves, causing water-soaked lesions that turn yellow and brown.',
-    solution: ['Use resistant rice varieties', 'Apply copper-based bactericides', 'Remove infected plant debris'],
-    prevention: ['Practice crop rotation', 'Ensure proper field drainage', 'Avoid overhead irrigation']
+    solution: {
+      en: [
+        'Use resistant rice varieties (IR24, IR64, Pusa Basmati)',
+        'Apply copper-based bactericides like Bordeaux mixture (1%)',
+        'Remove infected plant debris immediately after harvest',
+        'Spray streptomycin sulfate (500 ppm) every 10 days',
+        'Use aerial spraying for large infested areas',
+        'Apply bactericides like kasugamycin at 3ml/liter',
+        'Prune and burn infected leaves and stems',
+        'Use zinc and potassium rich fertilizers to strengthen plants'
+      ],
+      bn: [
+        'প্রতিরোধী ধান জাত ব্যবহার করুন (IR24, IR64, Pusa Basmati)',
+        'তামা-ভিত্তিক ব্যাকটেরিসাইড যেমন বোর্ডো মিশ্রণ (১%) প্রয়োগ করুন',
+        'সংক্রমিত উদ্ভিদ অবশেষ ফসল কাটার পর তৎক্ষণাৎ সরান',
+        '১০ দিনের ব্যবধানে স্ট্রেপ্টোমাইসিন সালফেট (৫০০ ppm) স্প্রে করুন',
+        'বড় সংক্রমিত এলাকার জন্য বায়বীয় স্প্রেয়িং ব্যবহার করুন',
+        'কাসুগামাইসিনের মতো ব্যাকটেরিসাইড ৩ml/লিটার হারে প্রয়োগ করুন',
+        'সংক্রমিত পাতা এবং কাণ্ড ছাঁটাই করে পুড়িয়ে ফেলুন',
+        'উদ্ভিদকে শক্তিশালী করতে জিংক এবং পটাশিয়াম সমৃদ্ধ সার ব্যবহার করুন'
+      ]
+    },
+    prevention: {
+      en: [
+        'Practice crop rotation with non-host crops',
+        'Ensure proper field drainage to reduce humidity',
+        'Avoid overhead irrigation; use drip irrigation',
+        'Space plants adequately for air circulation',
+        'Use certified disease-free seeds',
+        'Clean and disinfect tools before field operations',
+        'Remove weeds that can harbor pathogens',
+        'Monitor fields regularly during growing season',
+        'Apply preventive fungicides at early growth stages'
+      ],
+      bn: [
+        'অ-পোষক শস্যের সাথে ফসলের রোটেশন চর্চা করুন',
+        'আর্দ্রতা কমাতে সঠিক ক্ষেত গ্যালারি নিশ্চিত করুন',
+        'ওভারহেড সেচ এড়িয়ে ড্রিপ সেচ ব্যবহার করুন',
+        'বায়ু সংচালনের জন্য উদ্ভিদকে যথাযথ দূরত্বে রোপণ করুন',
+        'প্রত্যয়িত রোগমুক্ত বীজ ব্যবহার করুন',
+        'ক্ষেত্র কাজের আগে সরঞ্জাম পরিষ্কার এবং জীবাণুনাশক করুন',
+        'রোগজনকদের আশ্রয় করতে পারে এমন আগাছা অপসারণ করুন',
+        'বৃদ্ধির মৌসুমে নিয়মিত ক্ষেত্র পর্যবেক্ষণ করুন',
+        'প্রাথমিক বৃদ্ধির পর্যায়ে প্রতিরোধমূলক ছত্রাকনাশক প্রয়োগ করুন'
+      ]
+    }
   },
   'Rice Brown Spot': {
     crop: 'Rice',
-    description: 'Brown spot is a fungal disease caused by Bipolaris oryzae, characterized by brown spots on leaves that can lead to significant yield loss.',
-    solution: ['Apply fungicides like azoxystrobin', 'Use balanced fertilization', 'Plant resistant varieties'],
-    prevention: ['Avoid excessive nitrogen fertilization', 'Ensure proper plant spacing', 'Practice field sanitation']
+    description: 'Brown spot is a fungal disease caused by Bipolaris oryzae, characterized by brown spots on leaves.',
+    solution: {
+      en: [
+        'Apply fungicides like azoxystrobin at 1.2ml/liter',
+        'Use propiconazole or hexaconazole (0.5ml/liter)',
+        'Plant resistant varieties like Pusa Basmati 1121',
+        'Ensure balanced fertilization (avoid excessive nitrogen)',
+        'Use biofortified seeds when available',
+        'Apply trichoderma as a biocontrol agent',
+        'Spray bordeaux mixture (1%) every 2 weeks',
+        'Remove and burn severely affected leaves'
+      ],
+      bn: [
+        'অ্যাজোক্সিস্ট্রোবিন ১.২ml/লিটার হারে ছত্রাকনাশক প্রয়োগ করুন',
+        'প্রপিকোনাজোল বা হেক্সাকোনাজোল (0.5ml/লিটার) ব্যবহার করুন',
+        'প্রতিরোধী জাত যেমন Pusa Basmati 1121 রোপণ করুন',
+        'সুষম সার নিশ্চিত করুন (অতিরিক্ত নাইট্রোজেন এড়ান)',
+        'উপলব্ধ থাকলে জৈব সমৃদ্ধ বীজ ব্যবহার করুন',
+        'জৈব নিয়ন্ত্রণ এজেন্ট হিসাবে ট্রাইকোডার্মা প্রয়োগ করুন',
+        '২ সপ্তাহের ব্যবধানে বোর্ডো মিশ্রণ (১%) স্প্রে করুন',
+        'গুরুতরভাবে প্রভাবিত পাতা অপসারণ করে পুড়িয়ে ফেলুন'
+      ]
+    },
+    prevention: {
+      en: [
+        'Avoid excessive nitrogen fertilization',
+        'Ensure proper plant spacing for air movement',
+        'Practice field sanitation regularly',
+        'Use disease-free seeds from certified sources',
+        'Avoid overhead irrigation during early growth',
+        'Monitor fields regularly for early symptoms',
+        'Implement crop rotation practices',
+        'Maintain proper water management',
+        'Remove volunteer plants in field'
+      ],
+      bn: [
+        'অতিরিক্ত নাইট্রোজেন সার এড়িয়ে চলুন',
+        'বায়ু চলাচলের জন্য সঠিক উদ্ভিদ ব্যবধান নিশ্চিত করুন',
+        'নিয়মিত ক্ষেত্র পরিস্কার অনুশীলন করুন',
+        'প্রত্যয়িত উৎস থেকে রোগমুক্ত বীজ ব্যবহার করুন',
+        'প্রাথমিক বৃদ্ধির সময় ওভারহেড সেচ এড়িয়ে চলুন',
+        'প্রাথমিক লক্ষণের জন্য নিয়মিত ক্ষেত্র পর্যবেক্ষণ করুন',
+        'ফসল ঘূর্ণন অনুশীলন প্রয়োগ করুন',
+        'সঠিক জল ব্যবস্থাপনা বজায় রাখুন',
+        'ক্ষেত্রে স্বেচ্ছাসেবক উদ্ভিদ অপসারণ করুন'
+      ]
+    }
   },
   'Rice Leaf Smut': {
     crop: 'Rice',
-    description: 'Leaf smut is caused by Entyloma oryzae, appearing as small black spots on leaves that can coalesce into larger lesions.',
-    solution: ['Use fungicidal seed treatment', 'Apply systemic fungicides', 'Remove infected leaves'],
-    prevention: ['Use certified disease-free seeds', 'Practice crop rotation', 'Avoid wet conditions']
+    description: 'Leaf smut is caused by Entyloma oryzae, appearing as small black spots on leaves.',
+    solution: {
+      en: [
+        'Use fungicidal seed treatment (Carbendazim 50% WP)',
+        'Apply systemic fungicides like propiconazole',
+        'Remove infected leaves immediately',
+        'Spray mancozeb (0.2%) every 10 days',
+        'Use resistant varieties when available',
+        'Apply copper oxychloride (1%) for management',
+        'Implement integrated disease management',
+        'Monitor seedbeds for early detection'
+      ],
+      bn: [
+        'ছত্রাকনাশক বীজ চিকিৎসা ব্যবহার করুন (Carbendazim 50% WP)',
+        'প্রোপিকোনাজোলের মতো সিস্টেমিক ছত্রাকনাশক প্রয়োগ করুন',
+        'সংক্রমিত পাতা তৎক্ষণাৎ অপসারণ করুন',
+        '১০ দিনের ব্যবধানে ম্যানকোজেব (0.2%) স্প্রে করুন',
+        'উপলব্ধ থাকলে প্রতিরোধী জাত ব্যবহার করুন',
+        'ব্যবস্থাপনার জন্য তামা অক্সিক্লোরাইড (১%) প্রয়োগ করুন',
+        'সমন্বিত রোগ ব্যবস্থাপনা প্রয়োগ করুন',
+        'প্রাথমিক সনাক্তকরণের জন্য বীজতলা পর্যবেক্ষণ করুন'
+      ]
+    },
+    prevention: {
+      en: [
+        'Use certified disease-free seeds',
+        'Practice crop rotation with non-host crops',
+        'Avoid wet conditions in seedbeds',
+        'Ensure proper spacing in nurseries',
+        'Maintain field sanitation practices',
+        'Remove alternate host weeds',
+        'Use balanced nutrition',
+        'Monitor nurseries regularly',
+        'Disinfect tools and equipment'
+      ],
+      bn: [
+        'প্রত্যয়িত রোগমুক্ত বীজ ব্যবহার করুন',
+        'অ-পোষক শস্যের সাথে ফসলের রোটেশন অনুশীলন করুন',
+        'বীজতলায় আর্দ্র অবস্থা এড়িয়ে চলুন',
+        'নার্সারিতে সঠিক ব্যবধান নিশ্চিত করুন',
+        'ক্ষেত্র পরিস্কার অনুশীলন বজায় রাখুন',
+        'বিকল্প পোষক আগাছা অপসারণ করুন',
+        'সুষম পুষ্টি ব্যবহার করুন',
+        'নিয়মিত নার্সারি পর্যবেক্ষণ করুন',
+        'সরঞ্জাম এবং যন্ত্রপাতি জীবাণুনাশক করুন'
+      ]
+    }
   },
   'Wheat Black Rust': {
     crop: 'Wheat',
-    description: 'Black rust, caused by Puccinia graminis, is a devastating fungal disease that appears as black pustules on leaves and stems.',
-    solution: ['Apply fungicides like triazoles', 'Use resistant wheat varieties', 'Early planting'],
-    prevention: ['Plant resistant cultivars', 'Monitor weather conditions', 'Practice crop rotation']
-  },
-  'Wheat Brown Rust': {
-    crop: 'Wheat',
-    description: 'Brown rust is caused by Puccinia triticina, showing orange-brown pustules on leaves that can reduce photosynthesis.',
-    solution: ['Use fungicides', 'Plant resistant varieties', 'Optimize nitrogen fertilization'],
-    prevention: ['Use disease-resistant seeds', 'Avoid late planting', 'Monitor fields regularly']
-  },
-  'Wheat Yellow Rust': {
-    crop: 'Wheat',
-    description: 'Yellow rust, caused by Puccinia striiformis, appears as yellow stripes on leaves and can cause severe yield losses.',
-    solution: ['Apply fungicides at early stages', 'Use resistant varieties', 'Adjust planting dates'],
-    prevention: ['Plant resistant cultivars', 'Avoid susceptible varieties', 'Practice field monitoring']
+    description: 'Black rust, caused by Puccinia graminis, is a devastating fungal disease with black pustules.',
+    solution: {
+      en: [
+        'Apply fungicides like triazoles (tebuconazole, propiconazole)',
+        'Use resistant wheat varieties (HD3059, HD3086)',
+        'Early planting of variety to escape rust season',
+        'Spray metalaxyl + mancozeb (0.2%) combination',
+        'Apply azoxystrobin + tebuconazole formulations',
+        'Use foliar spray of potassium nitrate to boost immunity',
+        'Implement integrated fungicide strategy',
+        'Monitor weather conditions for rust development'
+      ],
+      bn: [
+        'ট্রায়াজোলের মতো ছত্রাকনাশক প্রয়োগ করুন (tebuconazole, propiconazole)',
+        'প্রতিরোধী গম জাত ব্যবহার করুন (HD3059, HD3086)',
+        'মরিচা ঋতু এড়াতে জাতের প্রাথমিক রোপণ করুন',
+        'ম্যাটালাক্সিল + ম্যানকোজেব (0.2%) সংমিশ্রণ স্প্রে করুন',
+        'অ্যাজোক্সিস্ট্রোবিন + tebuconazole ফর্মুলেশন ব্যবহার করুন',
+        'রোগ প্রতিরোধ ক্ষমতা বৃদ্ধির জন্য পটাসিয়াম নাইট্রেট পত্র স্প্রে ব্যবহার করুন',
+        'সমন্বিত ছত্রাকনাশক কৌশল প্রয়োগ করুন',
+        'মরিচা উন্নয়নের জন্য আবহাওয়ার অবস্থা পর্যবেক্ষণ করুন'
+      ]
+    },
+    prevention: {
+      en: [
+        'Plant resistant cultivars suitable for region',
+        'Monitor weather conditions regularly',
+        'Practice crop rotation practices',
+        'Remove volunteer wheat plants',
+        'Clean equipment between fields',
+        'Adjust planting dates based on rust forecast',
+        'Maintain proper field hygiene',
+        'Use varieties with disease resistance genes',
+        'Report disease incidence to authorities'
+      ],
+      bn: [
+        'অঞ্চলের জন্য উপযুক্ত প্রতিরোধী চাষাবাদ রোপণ করুন',
+        'নিয়মিত আবহাওয়ার অবস্থা পর্যবেক্ষণ করুন',
+        'ফসল ঘূর্ণন অনুশীলন করুন',
+        'স্বেচ্ছাসেবক গম উদ্ভিদ অপসারণ করুন',
+        'ক্ষেত্রগুলির মধ্যে সরঞ্জাম পরিষ্কার করুন',
+        'মরিচা পূর্বাভাসের উপর ভিত্তি করে রোপণের তারিখ সামঞ্জস্য করুন',
+        'সঠিক ক্ষেত্র স্বাস্থ্যবিধি বজায় রাখুন',
+        'রোগ প্রতিরোধ জিন সহ জাত ব্যবহার করুন',
+        'কর্তৃপক্ষকে রোগের ঘটনা রিপোর্ট করুন'
+      ]
+    }
   },
   'Healthy': {
     crop: 'Unknown',
     description: 'The plant appears healthy with no visible signs of disease.',
-    solution: ['Continue good agricultural practices', 'Monitor regularly'],
-    prevention: ['Maintain proper nutrition', 'Ensure adequate water', 'Practice integrated pest management']
+    solution: {
+      en: [
+        'Continue current good agricultural practices',
+        'Monitor plant health regularly',
+        'Maintain proper watering schedule',
+        'Provide adequate sunlight and nutrients',
+        'Keep field clean and weed-free',
+        'Watch for early signs of any diseases',
+        'Document plant progress with photos',
+        'Consult specialist if any symptoms appear'
+      ],
+      bn: [
+        'বর্তমান ভাল কৃষি অনুশীলন চালিয়ে যান',
+        'নিয়মিত উদ্ভিদের স্বাস্থ্য পর্যবেক্ষণ করুন',
+        'সঠিক জল সরবরাহের সময়সূচী বজায় রাখুন',
+        'যথাযথ সূর্যালোক এবং পুষ্টি প্রদান করুন',
+        'ক্ষেত্র পরিষ্কার এবং আগাছামুক্ত রাখুন',
+        'যেকোনো রোগের প্রাথমিক লক্ষণ পর্যবেক্ষণ করুন',
+        'ছবি দিয়ে উদ্ভিদের অগ্রগতি ডকুমেন্ট করুন',
+        'যেকোনো লক্ষণ দেখা দিলে বিশেষজ্ঞের সাথে পরামর্শ করুন'
+      ]
+    },
+    prevention: {
+      en: [
+        'Maintain integrated pest management',
+        'Regular field inspections',
+        'Proper nutrient and water management',
+        'Use quality seeds and seedlings',
+        'Keep disease-free environment',
+        'Monitor weather patterns',
+        'Record all field activities',
+        'Share knowledge with other farmers'
+      ],
+      bn: [
+        'সমন্বিত কীটপতঙ্গ ব্যবস্থাপনা বজায় রাখুন',
+        'নিয়মিত ক্ষেত্র পরিদর্শন',
+        'সঠিক পুষ্টি এবং জল ব্যবস্থাপনা',
+        'গুণমান বীজ এবং চারা ব্যবহার করুন',
+        'রোগমুক্ত পরিবেশ রাখুন',
+        'আবহাওয়ার ধরন পর্যবেক্ষণ করুন',
+        'সমস্ত ক্ষেত্র কার্যক্রম রেকর্ড করুন',
+        'অন্যান্য কৃষকদের সাথে জ্ঞান শেয়ার করুন'
+      ]
+    }
   }
 };
 
@@ -129,18 +335,20 @@ export const Scanner: React.FC<ScannerProps> = ({ lang, userId }) => {
         ];
         const randomResult = mockResults[Math.floor(Math.random() * mockResults.length)];
         
+        // Get disease info if available
+        const diseaseDetails = diseaseInfo[randomResult.diseaseName];
+        
         const detection: DiseaseDetectionResult = {
           ...randomResult,
-          description: randomResult.diseaseName === 'Healthy' 
-            ? (lang === 'bn' ? 'এই উদ্ভিদটি সুস্থ বলে মনে হচ্ছে।' : 'This plant appears healthy.')
-            : (lang === 'bn' ? `${randomResult.cropName} এ ${randomResult.diseaseName} রোগ শনাক্ত হয়েছে।` : `${randomResult.diseaseName} disease detected in ${randomResult.cropName}.`),
-          solution: randomResult.diseaseName === 'Healthy' 
-            ? [(lang === 'bn' ? 'উদ্ভিদের যত্ন নিন।' : 'Continue proper care.')]
-            : [(lang === 'bn' ? 'স্থানীয় কৃষি বিশেষজ্ঞের সাথে পরামর্শ করুন।' : 'Consult local agricultural expert.')],
-          prevention: [
-            (lang === 'bn' ? 'নিয়মিত পর্যবেক্ষণ করুন।' : 'Monitor regularly.'),
-            (lang === 'bn' ? 'সঠিক জল এবং সূর্যালোক নিশ্চিত করুন।' : 'Ensure proper watering and sunlight.')
-          ]
+          description: diseaseDetails?.description || (lang === 'bn' ? `${randomResult.cropName} এ ${randomResult.diseaseName} রোগ শনাক্ত হয়েছে।` : `${randomResult.diseaseName} disease detected in ${randomResult.cropName}.`),
+          solution: diseaseDetails?.solution || {
+            en: ['Consult local agricultural expert for specific treatment options'],
+            bn: ['স্থানীয় কৃষি বিশেষজ্ঞের সাথে পরামর্শ করুন সুনির্দিষ্ট চিকিৎসা বিকল্পের জন্য']
+          },
+          prevention: diseaseDetails?.prevention || {
+            en: ['Monitor the plant regularly', 'Maintain proper care'],
+            bn: ['উদ্ভিদটি নিয়মিত পর্যবেক্ষণ করুন', 'সঠিক যত্ন বজায় রাখুন']
+          }
         };
         
         setResult(detection);
@@ -224,32 +432,60 @@ export const Scanner: React.FC<ScannerProps> = ({ lang, userId }) => {
 
                   <div className="space-y-4">
                     <div>
-                      <h4 className="flex items-center gap-2 font-black text-emerald-800 dark:text-emerald-400 mb-2">
+                      <h4 className="flex items-center gap-2 font-black text-emerald-800 dark:text-emerald-400 mb-3">
                         <CheckCircle2 className="w-5 h-5" />
                         {t('solution')}
                       </h4>
                       <ul className="grid gap-2">
-                        {(result.solution || []).map((item, i) => (
-                          <li key={i} className="text-sm font-bold text-zinc-800 dark:text-zinc-400 flex gap-2">
-                            <span className="text-emerald-600 font-black">•</span>
-                            {item}
-                          </li>
-                        ))}
+                        {Array.isArray(result.solution) ? (
+                          result.solution.map((item, i) => (
+                            <li key={i} className="text-sm font-bold text-zinc-800 dark:text-zinc-400 flex gap-2">
+                              <span className="text-emerald-600 font-black">•</span>
+                              {item}
+                            </li>
+                          ))
+                        ) : (
+                          // Handle new structure with en/bn
+                          (result.solution as any)?.[lang] ? (
+                            (result.solution as any)[lang].map((item: string, i: number) => (
+                              <li key={i} className="text-sm font-bold text-zinc-800 dark:text-zinc-400 flex gap-2">
+                                <span className="text-emerald-600 font-black">•</span>
+                                {item}
+                              </li>
+                            ))
+                          ) : (
+                            <li className="text-sm font-bold text-zinc-800 dark:text-zinc-400">No solutions available</li>
+                          )
+                        )}
                       </ul>
                     </div>
 
                     <div>
-                      <h4 className="flex items-center gap-2 font-black text-zinc-800 dark:text-zinc-300 mb-2">
+                      <h4 className="flex items-center gap-2 font-black text-zinc-800 dark:text-zinc-300 mb-3">
                         <AlertCircle className="w-5 h-5" />
                         {t('prevention')}
                       </h4>
                       <ul className="grid gap-2">
-                        {(result.prevention || []).map((item, i) => (
-                          <li key={i} className="text-sm font-bold text-zinc-700 dark:text-zinc-500 flex gap-2">
-                            <span className="text-zinc-500 font-black">•</span>
-                            {item}
-                          </li>
-                        ))}
+                        {Array.isArray(result.prevention) ? (
+                          result.prevention.map((item, i) => (
+                            <li key={i} className="text-sm font-bold text-zinc-700 dark:text-zinc-500 flex gap-2">
+                              <span className="text-zinc-500 font-black">•</span>
+                              {item}
+                            </li>
+                          ))
+                        ) : (
+                          // Handle new structure with en/bn
+                          (result.prevention as any)?.[lang] ? (
+                            (result.prevention as any)[lang].map((item: string, i: number) => (
+                              <li key={i} className="text-sm font-bold text-zinc-700 dark:text-zinc-500 flex gap-2">
+                                <span className="text-zinc-500 font-black">•</span>
+                                {item}
+                              </li>
+                            ))
+                          ) : (
+                            <li className="text-sm font-bold text-zinc-700 dark:text-zinc-500">No prevention tips available</li>
+                          )
+                        )}
                       </ul>
                     </div>
                   </div>
