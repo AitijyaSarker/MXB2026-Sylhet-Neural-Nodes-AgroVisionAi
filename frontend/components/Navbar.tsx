@@ -30,7 +30,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <Leaf className="w-6 h-6 text-green-600 dark:text-green-500" />
           </div>
           <div className="flex flex-col">
-            <span className="text-lg font-black bg-gradient-to-r from-green-700 to-emerald-600 dark:from-green-400 dark:to-emerald-400 bg-clip-text text-transparent">
+            <span className="text-lg font-black text-green-700 dark:text-green-400">
               AgroVision
             </span>
             <span className="text-xs font-semibold text-zinc-500 dark:text-zinc-400">AI Crop Detection</span>
