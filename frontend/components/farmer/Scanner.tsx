@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { Camera, Upload, RefreshCcw, CheckCircle2, AlertCircle, Sparkles } from 'lucide-react';
 import { Language, DiseaseDetectionResult } from '../../types';
 import { translations } from '../../translations';
+import { DISEASE_API } from '../../api.config';
 
 interface ScannerProps {
   lang: Language;
@@ -309,7 +310,7 @@ export const Scanner: React.FC<ScannerProps> = ({ lang, userId }) => {
       const formData = new FormData();
       formData.append('image', file);
 
-      const response = await fetch('http://localhost:5000/api/disease/detect', {
+      const response = await fetch(`${DISEASE_API}/detect`, {
         method: 'POST',
         body: formData,
       });
@@ -320,7 +321,18 @@ export const Scanner: React.FC<ScannerProps> = ({ lang, userId }) => {
 
       const detection: DiseaseDetectionResult = await response.json();
       console.log('Detection result:', detection);
-      setResult(detection);
+      
+      // Merge with comprehensive disease info from database
+      const diseaseDetails = diseaseInfo[detection.diseaseName];
+      const enrichedDetection: DiseaseDetectionResult = {
+        ...detection,
+        solution: diseaseDetails?.solution || detection.solution,
+        prevention: diseaseDetails?.prevention || detection.prevention,
+        description: diseaseDetails?.description || detection.description
+      };
+      
+      console.log('Enriched detection result:', enrichedDetection);
+      setResult(enrichedDetection);
     } catch (err) {
       console.log('Error in processImage:', err);
       // Fallback: provide mock result for demo
