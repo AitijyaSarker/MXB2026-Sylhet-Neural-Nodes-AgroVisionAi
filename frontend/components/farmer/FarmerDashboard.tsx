@@ -51,8 +51,32 @@ const FarmerDashboard: React.FC<FarmerDashboardProps> = ({ userRole, userId, use
   }, [userId]);
 
   const loadSpecialists = async () => {
-    // Dummy specialists
-    setSpecialists([]);
+    // Load specialists with demo data
+    const specialistsData: Specialist[] = [
+      {
+        id: 'specialist_1',
+        name: 'Jubayer Rahman Chowdhury',
+        institution: 'Bangladesh Agricultural Research Institute',
+        department: 'Plant Pathology',
+        location: 'Sylhet, Bangladesh',
+        image: 'https://ui-avatars.com/api/?name=Jubayer+Rahman+Chowdhury&background=10b981&color=fff&size=200',
+        online: true,
+        email: 'jubayer@bari.org.bd',
+        expertise: ['Rice Diseases', 'Fungal Infections', 'Disease Management']
+      },
+      {
+        id: 'specialist_2',
+        name: 'Anidro Paul',
+        institution: 'Sylhet Agricultural University',
+        department: 'Crop Science',
+        location: 'Sylhet, Bangladesh',
+        image: 'https://ui-avatars.com/api/?name=Anidro+Paul&background=059669&color=fff&size=200',
+        online: true,
+        email: 'anidro@sau.ac.bd',
+        expertise: ['Crop Management', 'Pest Control', 'Soil Science']
+      }
+    ];
+    setSpecialists(specialistsData);
   };
 
   const loadConversations = async () => {

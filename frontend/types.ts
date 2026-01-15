@@ -19,13 +19,17 @@ export interface DiseaseDetectionResult {
 }
 
 export interface Specialist {
-  id: string;
+  id?: string;
+  _id?: string;
   name: string;
   institution: string;
   department: string;
-  location: string;
-  image: string;
-  online: boolean;
+  location?: string;
+  image?: string;
+  online?: boolean;
+  email?: string;
+  role?: string;
+  expertise?: string[];
 }
 
 export interface Message {

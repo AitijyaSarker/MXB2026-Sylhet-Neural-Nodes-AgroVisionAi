@@ -126,6 +126,28 @@ export const Messenger: React.FC<MessengerProps> = ({ lang, currentUser }) => {
       setSpecialists(response.data);
     } catch (error) {
       console.error('Error loading specialists:', error);
+      // Fallback: Load demo specialists
+      const demoSpecialists = [
+        {
+          _id: 'specialist_1',
+          name: 'Jubayer Rahman Chowdhury',
+          email: 'jubayer@bari.org.bd',
+          role: 'specialist',
+          institution: 'Bangladesh Agricultural Research Institute',
+          department: 'Plant Pathology',
+          expertise: ['Rice Diseases', 'Fungal Infections', 'Disease Management']
+        },
+        {
+          _id: 'specialist_2',
+          name: 'Anidro Paul',
+          email: 'anidro@sau.ac.bd',
+          role: 'specialist',
+          institution: 'Sylhet Agricultural University',
+          department: 'Crop Science',
+          expertise: ['Crop Management', 'Pest Control', 'Soil Science']
+        }
+      ];
+      setSpecialists(demoSpecialists);
     }
   };
 
