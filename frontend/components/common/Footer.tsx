@@ -1,5 +1,5 @@
 import React from 'react';
-import { Leaf, Facebook, Twitter, Linkedin, Instagram, Mail, Phone, MapPin, ExternalLink } from 'lucide-react';
+import { Leaf, Facebook, X, Linkedin, Instagram, Mail, Phone, MapPin, ExternalLink } from 'lucide-react';
 import { Language } from '../../types';
 import { translations } from '../../translations';
 
@@ -23,14 +23,11 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
               Agro Vision
             </span>
           </div>
-          <p className="text-zinc-700 dark:text-zinc-400 text-sm font-bold leading-relaxed max-w-xs">
-            {t('footer_text')}
-          </p>
           <div className="flex gap-3">
             {[
               { Icon: Facebook, href: '#', color: 'hover:text-blue-600' },
               { Icon: Linkedin, href: '#', color: 'hover:text-blue-700' },
-              { Icon: Twitter, href: '#', color: 'hover:text-sky-500' },
+              { Icon: X, href: '#', color: 'hover:text-gray-900 dark:hover:text-white' },
               { Icon: Instagram, href: '#', color: 'hover:text-pink-600' },
             ].map(({ Icon, href, color }, i) => (
               <a 

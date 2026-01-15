@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Leaf, Facebook, Twitter, Linkedin, Instagram } from 'lucide-react';
+import { Leaf, Facebook, X, Linkedin, Instagram } from 'lucide-react';
 import { Language } from '../types';
 import { translations } from '../translations';
 
@@ -13,11 +13,8 @@ export const Footer: React.FC<{ lang: Language }> = ({ lang }) => {
             <Leaf className="w-6 h-6 text-green-600" />
             <span className="text-xl font-bold">Agro Vision</span>
           </div>
-          <p className="text-zinc-500 text-sm leading-relaxed">
-            {translations.footer_text[lang]}
-          </p>
           <div className="flex gap-4">
-            {[Facebook, Twitter, Linkedin, Instagram].map((Icon, i) => (
+            {[Facebook, X, Linkedin, Instagram].map((Icon, i) => (
               <a key={i} href="#" className="w-10 h-10 rounded-xl bg-white dark:bg-zinc-800 flex items-center justify-center text-zinc-400 hover:text-green-600 hover:shadow-lg transition-all border border-zinc-100 dark:border-zinc-700">
                 <Icon className="w-5 h-5" />
               </a>
@@ -56,7 +53,7 @@ export const Footer: React.FC<{ lang: Language }> = ({ lang }) => {
       </div>
       
       <div className="max-w-7xl mx-auto mt-16 pt-8 border-t border-zinc-200 dark:border-zinc-800 text-center text-xs font-bold text-zinc-400 uppercase tracking-widest">
-        &copy; {new Date().getFullYear()} Team Agro Vision. Made with 💚 for Bangladesh.
+        &copy; {new Date().getFullYear()} Agro Vision. Made with 💚 for Bangladesh. By Aitijya
       </div>
     </footer>
   );
