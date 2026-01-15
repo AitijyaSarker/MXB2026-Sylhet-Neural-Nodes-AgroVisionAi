@@ -170,7 +170,11 @@ export const SpecialistMessenger: React.FC<SpecialistMessengerProps> = ({ lang, 
               }`}
             >
               <div className="relative">
-                <img src={conv.farmerImage} className="w-12 h-12 rounded-2xl object-cover" alt={conv.farmerName} />
+                <img 
+                  src={conv.farmerImage || `https://ui-avatars.com/api/?name=${conv.farmerName}&background=22c55e&color=fff`} 
+                  className="w-12 h-12 rounded-2xl object-cover" 
+                  alt={conv.farmerName} 
+                />
                 {conv.unreadCount > 0 && (
                   <div className="absolute -top-1 -right-1 w-5 h-5 bg-green-600 text-[10px] text-white font-bold flex items-center justify-center rounded-full border-2 border-white dark:border-zinc-900 animate-bounce">
                     {conv.unreadCount}
