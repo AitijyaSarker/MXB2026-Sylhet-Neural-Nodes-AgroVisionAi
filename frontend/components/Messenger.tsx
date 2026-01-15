@@ -45,12 +45,12 @@ export const Messenger: React.FC<MessengerProps> = ({ lang, currentUser }) => {
   // Load conversations
   const loadConversations = async () => {
     if (currentUser?.role === 'specialist') {
-      // Demo conversations for specialist
+      // Demo conversations for specialist from multiple farmers
       const demoConversations: Conversation[] = [
         {
           conversationId: 'demo_conv_1',
           lastMessage: {
-            _id: 'msg1',
+            _id: 'msg1_3',
             sender: {
               _id: 'farmer1',
               name: 'Rahim Khan',
@@ -63,13 +63,13 @@ export const Messenger: React.FC<MessengerProps> = ({ lang, currentUser }) => {
               email: currentUser.email || '',
               role: currentUser.role || ''
             },
-            content: 'Hello specialist, I have a problem with my rice crop.',
-            timestamp: new Date(Date.now() - 3600000).toISOString(), // 1 hour ago
+            content: 'The brown spots are getting worse. Please advise urgently!',
+            timestamp: new Date(Date.now() - 600000).toISOString(), // 10 minutes ago
             read: false,
             conversationId: 'demo_conv_1'
           },
-          messageCount: 3,
-          unreadCount: 2,
+          messageCount: 5,
+          unreadCount: 1,
           otherUser: {
             _id: 'farmer1',
             name: 'Rahim Khan',
@@ -80,7 +80,7 @@ export const Messenger: React.FC<MessengerProps> = ({ lang, currentUser }) => {
         {
           conversationId: 'demo_conv_2',
           lastMessage: {
-            _id: 'msg2',
+            _id: 'msg2_5',
             sender: {
               _id: 'farmer2',
               name: 'Kamal Hossain',
@@ -93,8 +93,8 @@ export const Messenger: React.FC<MessengerProps> = ({ lang, currentUser }) => {
               email: currentUser.email || '',
               role: currentUser.role || ''
             },
-            content: 'My wheat plants are showing yellow spots.',
-            timestamp: new Date(Date.now() - 7200000).toISOString(), // 2 hours ago
+            content: 'Thank you for the advice! Will apply the fungicide today.',
+            timestamp: new Date(Date.now() - 3600000).toISOString(), // 1 hour ago
             read: true,
             conversationId: 'demo_conv_2'
           },
@@ -104,6 +104,66 @@ export const Messenger: React.FC<MessengerProps> = ({ lang, currentUser }) => {
             _id: 'farmer2',
             name: 'Kamal Hossain',
             email: 'kamal@example.com',
+            role: 'farmer'
+          }
+        },
+        {
+          conversationId: 'demo_conv_3',
+          lastMessage: {
+            _id: 'msg3_1',
+            sender: {
+              _id: 'farmer3',
+              name: 'Fatima Begum',
+              email: 'fatima@example.com',
+              role: 'farmer'
+            },
+            receiver: {
+              _id: currentUser.id || '',
+              name: currentUser.name || '',
+              email: currentUser.email || '',
+              role: currentUser.role || ''
+            },
+            content: 'Hello! My tomato plants have white powder on leaves. What disease is this?',
+            timestamp: new Date(Date.now() - 1800000).toISOString(), // 30 minutes ago
+            read: false,
+            conversationId: 'demo_conv_3'
+          },
+          messageCount: 1,
+          unreadCount: 1,
+          otherUser: {
+            _id: 'farmer3',
+            name: 'Fatima Begum',
+            email: 'fatima@example.com',
+            role: 'farmer'
+          }
+        },
+        {
+          conversationId: 'demo_conv_4',
+          lastMessage: {
+            _id: 'msg4_2',
+            sender: {
+              _id: 'farmer4',
+              name: 'Hasan Ali',
+              email: 'hasan@example.com',
+              role: 'farmer'
+            },
+            receiver: {
+              _id: currentUser.id || '',
+              name: currentUser.name || '',
+              email: currentUser.email || '',
+              role: currentUser.role || ''
+            },
+            content: 'How many days before I can harvest after applying the pesticide?',
+            timestamp: new Date(Date.now() - 7200000).toISOString(), // 2 hours ago
+            read: false,
+            conversationId: 'demo_conv_4'
+          },
+          messageCount: 3,
+          unreadCount: 1,
+          otherUser: {
+            _id: 'farmer4',
+            name: 'Hasan Ali',
+            email: 'hasan@example.com',
             role: 'farmer'
           }
         }
@@ -208,8 +268,8 @@ export const Messenger: React.FC<MessengerProps> = ({ lang, currentUser }) => {
             email: currentUser.email || '',
             role: 'specialist'
           },
-          content: 'Sure, I will send the photo soon.',
-          timestamp: new Date(Date.now() - 1800000).toISOString(),
+          content: 'The brown spots are getting worse. Please advise urgently!',
+          timestamp: new Date(Date.now() - 600000).toISOString(),
           read: false,
           conversationId: 'demo_conv_1'
         }
@@ -309,8 +369,89 @@ export const Messenger: React.FC<MessengerProps> = ({ lang, currentUser }) => {
           read: true,
           conversationId: 'demo_conv_2'
         }
-      ];
-      setMessages(demoMessages);
+      ] : conversationId === 'demo_conv_3' ? [
+        {
+          _id: 'msg3_1',
+          sender: {
+            _id: 'farmer3',
+            name: 'Fatima Begum',
+            email: 'fatima@example.com',
+            role: 'farmer'
+          },
+          receiver: {
+            _id: currentUser.id,
+            name: currentUser.name || 'Specialist',
+            email: currentUser.email || '',
+            role: 'specialist'
+          },
+          content: 'Hello! My tomato plants have white powder on leaves. What disease is this?',
+          timestamp: new Date(Date.now() - 1800000).toISOString(),
+          read: false,
+          conversationId: 'demo_conv_3'
+        }
+      ] : conversationId === 'demo_conv_4' ? [
+        {
+          _id: 'msg4_1',
+          sender: {
+            _id: 'farmer4',
+            name: 'Hasan Ali',
+            email: 'hasan@example.com',
+            role: 'farmer'
+          },
+          receiver: {
+            _id: currentUser.id,
+            name: currentUser.name || 'Specialist',
+            email: currentUser.email || '',
+            role: 'specialist'
+          },
+          content: 'Hello specialist, I have a question about pest management in my potato field.',
+          timestamp: new Date(Date.now() - 10800000).toISOString(),
+          read: true,
+          conversationId: 'demo_conv_4'
+        },
+        {
+          _id: 'msg4_2',
+          sender: {
+            _id: currentUser.id,
+            name: currentUser.name || 'Specialist',
+            email: currentUser.email || '',
+            role: 'specialist'
+          },
+          receiver: {
+            _id: 'farmer4',
+            name: 'Hasan Ali',
+            email: 'hasan@example.com',
+            role: 'farmer'
+          },
+          content: 'Hi Hasan! I would be happy to help. What specific issue are you facing?',
+          timestamp: new Date(Date.now() - 9000000).toISOString(),
+          read: true,
+          conversationId: 'demo_conv_4'
+        },
+        {
+          _id: 'msg4_3',
+          sender: {
+            _id: 'farmer4',
+            name: 'Hasan Ali',
+            email: 'hasan@example.com',
+            role: 'farmer'
+          },
+          receiver: {
+            _id: currentUser.id,
+            name: currentUser.name || 'Specialist',
+            email: currentUser.email || '',
+            role: 'specialist'
+          },
+          content: 'How many days before I can harvest after applying the pesticide?',
+          timestamp: new Date(Date.now() - 7200000).toISOString(),
+          read: false,
+          conversationId: 'demo_conv_4'
+        }
+      ] : [
+        {
+          _id: 'msg1_1',
+          sender: {
+            _id: 'farmer1',
     } else {
       try {
         const response = await axios.get(`${MESSAGES_API}/${conversationId}?userId=${currentUser.id}`);
