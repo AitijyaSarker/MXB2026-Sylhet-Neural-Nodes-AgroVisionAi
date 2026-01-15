@@ -9,7 +9,7 @@ interface MessengerProps {
   currentUser: any;
 }
 
-export const Messenger: React.FC<MessengerProps> = ({ lang, currentUser }) => {
+export const Messenger: React.FC<MessengerProps> = ({ lang, currentUser }): JSX.Element => {
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [selectedConversation, setSelectedConversation] = useState<Conversation | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);

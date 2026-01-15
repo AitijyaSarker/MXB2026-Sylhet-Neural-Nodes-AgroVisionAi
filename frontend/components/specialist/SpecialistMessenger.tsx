@@ -53,7 +53,7 @@ export const SpecialistMessenger: React.FC<SpecialistMessengerProps> = ({ lang, 
         {
           id: '1',
           farmerId: 'farmer1',
-          farmerName: 'Demo Farmer',
+          farmerName: 'Aitijya',
           farmerImage: '',
           lastMessage: 'Hello, I need help with my crops.',
           timestamp: new Date(),
@@ -62,7 +62,7 @@ export const SpecialistMessenger: React.FC<SpecialistMessengerProps> = ({ lang, 
             {
               id: '1',
               senderId: 'farmer1',
-              senderName: 'Demo Farmer',
+              senderName: 'Aitijya',
               text: 'Hello, I need help with my crops.',
               timestamp: new Date(),
               isFromFarmer: true
