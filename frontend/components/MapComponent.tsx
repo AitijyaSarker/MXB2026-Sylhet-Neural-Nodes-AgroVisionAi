@@ -1,4 +1,5 @@
 // @ts-nocheck
+'use client'
 
 import React, { useState, useEffect, useRef } from 'react';
 import { MapPin, Navigation, Info, ExternalLink } from 'lucide-react';

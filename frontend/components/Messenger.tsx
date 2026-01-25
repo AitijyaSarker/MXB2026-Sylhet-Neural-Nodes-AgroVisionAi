@@ -1,4 +1,5 @@
-// @ts-nocheck
+'use client'
+
 import React, { useState, useEffect, useRef } from 'react';
 import type React as ReactType from 'react';
 import { Send, MessageCircle, User, Clock, Check, CheckCheck } from 'lucide-react';

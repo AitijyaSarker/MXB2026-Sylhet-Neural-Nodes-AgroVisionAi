@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useState } from 'react';
 import { Language, UserRole } from '../types';
 import { UserPlus, Mail, Lock, User } from 'lucide-react';
