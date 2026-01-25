@@ -67,9 +67,9 @@ function HomeContent() {
         return (
           <div>
             <Hero onGetStarted={() => setCurrentPage('register')} lang={lang} />
-            <About />
-            <Datasets />
-            <Contact />
+            <About lang={lang} />
+            <Datasets lang={lang} />
+            <Contact lang={lang} />
           </div>
         );
       case 'login':
@@ -97,18 +97,18 @@ function HomeContent() {
           ? <SpecialistDashboard userId={user?.id} lang={lang} />
           : <FarmerDashboard userRole={userRole} userId={user?.id} user={user} lang={lang} />;
       case 'datasets':
-        return <Datasets />;
+        return <Datasets lang={lang} />;
       case 'about':
-        return <About />;
+        return <About lang={lang} />;
       case 'contact':
-        return <Contact />;
+        return <Contact lang={lang} />;
       default:
         return (
           <div>
             <Hero onGetStarted={() => setCurrentPage('register')} lang={lang} />
-            <About />
-            <Datasets />
-            <Contact />
+            <About lang={lang} />
+            <Datasets lang={lang} />
+            <Contact lang={lang} />
           </div>
         );
     }

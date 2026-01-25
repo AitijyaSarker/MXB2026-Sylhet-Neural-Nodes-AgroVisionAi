@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Send, CheckCircle } from 'lucide-react';
-import { useTranslation } from '../../src/hooks/useTranslation';
 import { Language } from '../../types';
+import { translations } from '../../translations';
 
-export const Contact: React.FC = () => {
-  const { t, lang } = useTranslation();
+interface ContactProps {
+  lang?: Language;
+}
+
+export const Contact: React.FC<ContactProps> = ({ lang = 'en' }) => {
+  const t = (key: string) => translations[key]?.[lang] || key;
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
