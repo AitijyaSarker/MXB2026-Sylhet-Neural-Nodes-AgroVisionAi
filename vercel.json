@@ -19,5 +19,10 @@
       "src": "/(.*)",
       "dest": "frontend"
     }
-  ]
+  ],
+  "env": {
+    "MONGO_URI": "@mongodb_uri",
+    "FRONTEND_URL": "@frontend_url",
+    "NODE_ENV": "production"
+  }
 }

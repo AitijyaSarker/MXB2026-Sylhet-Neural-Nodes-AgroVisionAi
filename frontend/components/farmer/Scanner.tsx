@@ -326,8 +326,8 @@ export const Scanner: React.FC<ScannerProps> = ({ lang, userId }) => {
       const diseaseDetails = diseaseInfo[detection.diseaseName];
       const enrichedDetection: DiseaseDetectionResult = {
         ...detection,
-        solution: diseaseDetails?.solution || detection.solution,
-        prevention: diseaseDetails?.prevention || detection.prevention,
+        solution: diseaseDetails?.solution?.[lang as Language] || detection.solution,
+        prevention: diseaseDetails?.prevention?.[lang as Language] || detection.prevention,
         description: diseaseDetails?.description || detection.description
       };
       
@@ -353,14 +353,16 @@ export const Scanner: React.FC<ScannerProps> = ({ lang, userId }) => {
         const detection: DiseaseDetectionResult = {
           ...randomResult,
           description: diseaseDetails?.description || (lang === 'bn' ? `${randomResult.cropName} এ ${randomResult.diseaseName} রোগ শনাক্ত হয়েছে।` : `${randomResult.diseaseName} disease detected in ${randomResult.cropName}.`),
-          solution: diseaseDetails?.solution || {
-            en: ['Consult local agricultural expert for specific treatment options'],
-            bn: ['স্থানীয় কৃষি বিশেষজ্ঞের সাথে পরামর্শ করুন সুনির্দিষ্ট চিকিৎসা বিকল্পের জন্য']
-          },
-          prevention: diseaseDetails?.prevention || {
-            en: ['Monitor the plant regularly', 'Maintain proper care'],
-            bn: ['উদ্ভিদটি নিয়মিত পর্যবেক্ষণ করুন', 'সঠিক যত্ন বজায় রাখুন']
-          }
+          solution: diseaseDetails?.solution?.[lang as Language] || (
+            lang === 'bn'
+              ? ['স্থানীয় কৃষি বিশেষজ্ঞের সাথে পরামর্শ করুন সুনির্দিষ্ট চিকিৎসা বিকল্পের জন্য']
+              : ['Consult local agricultural expert for specific treatment options']
+          ),
+          prevention: diseaseDetails?.prevention?.[lang as Language] || (
+            lang === 'bn'
+              ? ['উদ্ভিদটি নিয়মিত পর্যবেক্ষণ করুন', 'সঠিক যত্ন বজায় রাখুন']
+              : ['Monitor the plant regularly', 'Maintain proper care']
+          )
         };
         
         setResult(detection);
@@ -379,35 +381,46 @@ export const Scanner: React.FC<ScannerProps> = ({ lang, userId }) => {
   return (
     <div className="w-full max-w-4xl mx-auto px-4 py-8">
       {!image ? (
-        <div className="grid md:grid-cols-2 gap-6">
-          <div 
-            onClick={() => fileInputRef.current?.click()}
-            className={`group cursor-pointer aspect-square bg-white dark:bg-zinc-800 rounded-3xl border-4 border-dashed border-zinc-300 dark:border-zinc-700 flex flex-col items-center justify-center gap-4 transition-all hover:border-green-600 hover:bg-green-50 dark:hover:bg-green-900/10`}
-          >
-            <div className={`p-6 rounded-full transition-transform group-hover:scale-110 bg-green-100 dark:bg-green-900/30`}>
-              <Upload className="w-12 h-12 text-green-700 dark:text-green-500" />
+        <div className="space-y-6">
+          <div className="grid md:grid-cols-2 gap-6">
+            <div 
+              onClick={() => fileInputRef.current?.click()}
+              className={`group cursor-pointer aspect-square bg-white dark:bg-zinc-800 rounded-3xl border-4 border-dashed border-zinc-300 dark:border-zinc-700 flex flex-col items-center justify-center gap-4 transition-all hover:border-green-600 hover:bg-green-50 dark:hover:bg-green-900/10`}
+            >
+              <div className={`p-6 rounded-full transition-transform group-hover:scale-110 bg-green-100 dark:bg-green-900/30`}>
+                <Upload className="w-12 h-12 text-green-700 dark:text-green-500" />
+              </div>
+              <div className="text-center">
+                <p className="text-xl font-black text-zinc-900 dark:text-white">
+                  {lang === 'bn' ? 'ছবি আপলোড করুন' : 'Upload Image'}
+                </p>
+                <p className="text-zinc-700 dark:text-zinc-500 text-sm font-bold">
+                  {lang === 'bn' ? 'গ্যালারি থেকে সিলেক্ট করুন' : 'Select from Gallery'}
+                </p>
+              </div>
             </div>
-            <div className="text-center">
-              <p className="text-xl font-black text-zinc-900 dark:text-white">
-                {lang === 'bn' ? 'ছবি আপলোড করুন' : 'Upload Image'}
-              </p>
-              <p className="text-zinc-700 dark:text-zinc-500 text-sm font-bold">
-                {lang === 'bn' ? 'গ্যালারি থেকে সিলেক্ট করুন' : 'Select from Gallery'}
-              </p>
+
+            <div 
+              className="group aspect-square bg-white dark:bg-zinc-800 rounded-3xl border-4 border-dashed border-zinc-300 dark:border-zinc-700 flex flex-col items-center justify-center gap-4 cursor-not-allowed opacity-60"
+            >
+              <div className="p-6 bg-blue-100 dark:bg-blue-900/30 rounded-full">
+                <Camera className="w-12 h-12 text-blue-700 dark:text-blue-500" />
+              </div>
+              <div className="text-center">
+                <p className="text-xl font-black text-zinc-900 dark:text-white">{lang === 'bn' ? 'ক্যামেরা (শীঘ্রই আসছে)' : 'Camera (Coming Soon)'}</p>
+                <p className="text-zinc-700 dark:text-zinc-500 text-sm font-bold">{lang === 'bn' ? 'সরাসরি ছবি তুলুন' : 'Take a photo directly'}</p>
+              </div>
             </div>
           </div>
 
-          <div 
-            className="group aspect-square bg-white dark:bg-zinc-800 rounded-3xl border-4 border-dashed border-zinc-300 dark:border-zinc-700 flex flex-col items-center justify-center gap-4 cursor-not-allowed opacity-60"
+          {/* Additional Actions Button */}
+          <button
+            className="w-full py-5 px-8 bg-linear-to-r from-green-500 via-emerald-500 to-teal-500 hover:from-green-600 hover:via-emerald-600 hover:to-teal-600 text-white font-black text-lg rounded-2xl flex items-center justify-center gap-3 transition-all duration-300 shadow-2xl hover:shadow-2xl hover:scale-105 active:scale-95 border-2 border-white dark:border-zinc-700 relative overflow-hidden group"
           >
-            <div className="p-6 bg-blue-100 dark:bg-blue-900/30 rounded-full">
-              <Camera className="w-12 h-12 text-blue-700 dark:text-blue-500" />
-            </div>
-            <div className="text-center">
-              <p className="text-xl font-black text-zinc-900 dark:text-white">{lang === 'bn' ? 'ক্যামেরা (শীঘ্রই আসছে)' : 'Camera (Coming Soon)'}</p>
-              <p className="text-zinc-700 dark:text-zinc-500 text-sm font-bold">{lang === 'bn' ? 'সরাসরি ছবি তুলুন' : 'Take a photo directly'}</p>
-            </div>
-          </div>
+            <div className="absolute inset-0 bg-linear-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-20 transition-opacity duration-300 transform -translate-x-full group-hover:translate-x-full" style={{transitionDuration: '600ms'}} />
+            <Sparkles className="w-7 h-7 relative z-10" />
+            <span className="relative z-10">{lang === 'bn' ? 'পাওয়ার স্ক্যান' : 'Power Scan'}</span>
+          </button>
           <input type="file" hidden ref={fileInputRef} onChange={handleFileUpload} accept="image/*" />
         </div>
       ) : (
@@ -425,14 +438,14 @@ export const Scanner: React.FC<ScannerProps> = ({ lang, userId }) => {
 
             <div className="flex flex-col gap-6">
               {result ? (
-                <div className="bg-white dark:bg-zinc-800 p-8 rounded-3xl shadow-xl space-y-6 border border-zinc-200 dark:border-zinc-700 h-full overflow-y-auto max-h-[550px]">
+                <div className="bg-white dark:bg-zinc-800 p-8 rounded-3xl shadow-xl space-y-6 border border-zinc-200 dark:border-zinc-700 h-full overflow-y-auto max-h-137.5">
                   <div className="flex justify-between items-start">
                     <div>
                       <h3 className="text-xs font-black text-zinc-500 dark:text-zinc-400 uppercase tracking-widest">{t('results_title')}</h3>
                       <h2 className="text-3xl font-black text-green-800 dark:text-green-400">{result.diseaseName}</h2>
                       <p className="text-lg font-bold text-zinc-800 dark:text-zinc-200">{result.cropName}</p>
                     </div>
-                    <div className="bg-green-100 dark:bg-green-900/40 p-3 rounded-2xl text-center min-w-[100px] border border-green-200 dark:border-transparent">
+                    <div className="bg-green-100 dark:bg-green-900/40 p-3 rounded-2xl text-center min-w-25 border border-green-200 dark:border-transparent">
                       <p className="text-[10px] font-black text-green-800 dark:text-green-400 uppercase tracking-tighter">{t('confidence')}</p>
                       <p className="text-2xl font-black text-green-900 dark:text-green-200">{(result.confidence * 100).toFixed(0)}%</p>
                     </div>
