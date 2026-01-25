@@ -13,6 +13,7 @@ import { Register } from '../components/Register';
 import { Login } from '../components/Login';
 import { LanguageProvider, useTranslation } from '../src/hooks/useTranslation';
 import { UserRole } from '../types';
+import { ErrorBoundary } from '../components/ErrorBoundary';
 
 function HomeContent() {
   const [currentPage, setCurrentPage] = useState<'home' | 'login' | 'register' | 'dashboard' | 'datasets' | 'about' | 'contact'>('home');
@@ -126,7 +127,9 @@ function HomeContent() {
         onLangChange={setLang}
       />
       <main className="pt-16 min-h-[calc(100vh-80px)]">
-        {renderPage()}
+        <ErrorBoundary>
+          {renderPage()}
+        </ErrorBoundary>
       </main>
       <Footer lang={lang} />
     </div>
