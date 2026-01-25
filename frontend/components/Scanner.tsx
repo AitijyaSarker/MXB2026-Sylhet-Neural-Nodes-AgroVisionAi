@@ -1,12 +1,15 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { Camera, Upload, RefreshCcw, CheckCircle2, AlertCircle, Sparkles } from 'lucide-react';
-import { DiseaseDetectionResult } from '../types';
-import { useTranslation } from '../src/hooks/useTranslation';
+import { DiseaseDetectionResult, Language } from '../types';
+import { translations } from '../translations';
 import { detectCropDisease } from '../geminiService';
 
-export const Scanner: React.FC = () => {
-  const { t, lang } = useTranslation();
+interface ScannerProps {
+  lang?: Language;
+}
+
+export const Scanner: React.FC<ScannerProps> = ({ lang = 'en' }) => {
+  const t = (key: string) => translations[key]?.[lang] || key;
   const [image, setImage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<DiseaseDetectionResult | null>(null);
