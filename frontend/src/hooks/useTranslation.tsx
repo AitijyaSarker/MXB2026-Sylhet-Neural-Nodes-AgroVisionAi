@@ -39,7 +39,16 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 export const useTranslation = () => {
   const context = useContext(LanguageContext);
   if (context === undefined) {
-    throw new Error('useTranslation must be used within a LanguageProvider');
+    console.warn(
+      '⚠️ useTranslation called outside LanguageProvider. ' +
+      'Make sure LanguageProvider wraps your entire app in the root layout.'
+    );
+    // Return a fallback context to prevent hard crashes
+    return {
+      lang: 'en' as Language,
+      setLang: () => {},
+      t: (key: string) => key,
+    };
   }
   return context;
 };

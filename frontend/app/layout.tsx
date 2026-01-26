@@ -1,9 +1,7 @@
-import './globals.css'
+'use client'
 
-export const metadata = {
-  title: 'Agro Vision | AI Agriculture',
-  description: 'AI-powered crop disease detection and agricultural assistance',
-}
+import './globals.css'
+import { LanguageProvider } from '@/src/hooks/useTranslation'
 
 export default function RootLayout({
   children,
@@ -21,7 +19,9 @@ export default function RootLayout({
         <script src="https://cdn.tailwindcss.com"></script>
       </head>
       <body className="font-sans">
-        {children}
+        <LanguageProvider>
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   )

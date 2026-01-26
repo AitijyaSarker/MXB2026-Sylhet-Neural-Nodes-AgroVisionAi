@@ -11,7 +11,7 @@ import { Contact } from '../components/common/Contact';
 import { Footer } from '../components/common/Footer';
 import { Register } from '../components/Register';
 import { Login } from '../components/Login';
-import { LanguageProvider, useTranslation } from '../src/hooks/useTranslation';
+import { useTranslation } from '../src/hooks/useTranslation';
 import { UserRole } from '../types';
 import { ErrorBoundary } from '../components/ErrorBoundary';
 
@@ -137,9 +137,5 @@ function HomeContent() {
 }
 
 export default function Home() {
-  return (
-    <LanguageProvider>
-      <HomeContent />
-    </LanguageProvider>
-  );
+  return <HomeContent />;
 }
