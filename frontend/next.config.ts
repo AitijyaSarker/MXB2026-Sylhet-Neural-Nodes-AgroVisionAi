@@ -10,6 +10,8 @@ const nextConfig: NextConfig = {
     // Disable ESLint during production builds
     ignoreDuringBuilds: true,
   },
+  // Force rebuild cache to clear
+  productionBrowserSourceMaps: false,
 };
 
 export default nextConfig;
