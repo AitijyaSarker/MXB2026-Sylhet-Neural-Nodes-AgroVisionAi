@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, createContext } from 'react';
 import { Language } from '../../types';
 import { translations } from '../../translations';
 
@@ -10,15 +10,15 @@ interface LanguageContextType {
   t: (key: string) => string;
 }
 
-const LanguageContext = React.createContext<LanguageContextType | undefined>(undefined);
+const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [lang, setLang] = useState<Language>('en');
-  const [isHydrated, setIsHydrated] = useState(false);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    // Mark as hydrated once client-side rendering begins
-    setIsHydrated(true);
+    // Mark as client-side rendering
+    setIsClient(true);
     
     // Load saved language preference
     const savedLang = localStorage.getItem('agrovision-lang') as Language;
@@ -27,7 +27,9 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   const handleSetLang = (newLang: Language) => {
     setLang(newLang);
-    localStorage.setItem('agrovision-lang', newLang);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('agrovision-lang', newLang);
+    }
   };
 
   const t = (key: string): string => {
@@ -43,17 +45,30 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
 export const useTranslation = () => {
   const context = useContext(LanguageContext);
+  
   if (context === undefined) {
+    // Return safe fallback instead of throwing
+    if (typeof window === 'undefined') {
+      // Server-side: return minimal default
+      return {
+        lang: 'en' as Language,
+        setLang: () => {},
+        t: (key: string) => key,
+      };
+    }
+    
+    // Client-side: log warning but don't crash
     console.warn(
       '⚠️ useTranslation called outside LanguageProvider. ' +
       'Make sure LanguageProvider wraps your entire app in the root layout.'
     );
-    // Return a fallback context to prevent hard crashes
+    
     return {
       lang: 'en' as Language,
       setLang: () => {},
       t: (key: string) => key,
     };
   }
+  
   return context;
 };
