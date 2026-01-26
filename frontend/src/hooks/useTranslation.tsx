@@ -14,8 +14,13 @@ const LanguageContext = React.createContext<LanguageContextType | undefined>(und
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [lang, setLang] = useState<Language>('en');
+  const [isHydrated, setIsHydrated] = useState(false);
 
   useEffect(() => {
+    // Mark as hydrated once client-side rendering begins
+    setIsHydrated(true);
+    
+    // Load saved language preference
     const savedLang = localStorage.getItem('agrovision-lang') as Language;
     if (savedLang) setLang(savedLang);
   }, []);
