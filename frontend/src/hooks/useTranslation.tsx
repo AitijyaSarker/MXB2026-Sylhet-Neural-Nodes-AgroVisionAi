@@ -44,31 +44,29 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 };
 
 export const useTranslation = () => {
-  const context = useContext(LanguageContext);
-  
-  if (context === undefined) {
-    // Return safe fallback instead of throwing
-    if (typeof window === 'undefined') {
-      // Server-side: return minimal default
-      return {
-        lang: 'en' as Language,
-        setLang: () => {},
-        t: (key: string) => key,
-      };
-    }
+  try {
+    const context = useContext(LanguageContext);
     
-    // Client-side: log warning but don't crash
+    if (context !== undefined) {
+      return context;
+    }
+  } catch (error) {
+    console.error('Error accessing LanguageContext:', error);
+  }
+  
+  // Always return a safe fallback, never throw
+  const fallback = {
+    lang: 'en' as Language,
+    setLang: () => {},
+    t: (key: string) => key,
+  };
+  
+  if (typeof window !== 'undefined') {
     console.warn(
       '⚠️ useTranslation called outside LanguageProvider. ' +
       'Make sure LanguageProvider wraps your entire app in the root layout.'
     );
-    
-    return {
-      lang: 'en' as Language,
-      setLang: () => {},
-      t: (key: string) => key,
-    };
   }
   
-  return context;
+  return fallback;
 };
